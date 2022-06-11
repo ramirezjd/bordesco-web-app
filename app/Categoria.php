@@ -9,4 +9,7 @@ class Categoria extends Model
     protected $table = 'categorias';
     public $timestamps = false;
     protected $primaryKey = 'id';
+    protected $fillable = [
+        'nombre'
+    ];
 }
