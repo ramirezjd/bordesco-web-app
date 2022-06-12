@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/categorias', 'CategoriaController');
+Route::resource('/festivales', 'FestivalController');
 
 Auth::routes();
 
