@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Festival;
 use Illuminate\Http\Request;
 
-class festivalController extends Controller
+class FestivalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class festivalController extends Controller
 		{
 			$festivales = Festival::all();
 			return view('festivales.index',compact('festivales'));
-        //
+       //
     }
 
     /**
