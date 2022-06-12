@@ -98,6 +98,9 @@ class PremioConroller extends Controller
      */
     public function destroy($id)
     {
-        //
+          $premios = Premio::find($id);
+          $premios->delete();
+         return redirect('/premios');
+
     }
 }

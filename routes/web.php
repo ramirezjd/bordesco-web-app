@@ -23,6 +23,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/categorias', 'CategoriaController');
 Route::resource('/premios', 'PremioConroller');
+Route::get('/pruebas', function () {
+    return view('layouts.plantilla');
+    // return view('welcome');
+});
 
 Auth::routes();
 
