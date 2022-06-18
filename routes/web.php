@@ -25,6 +25,7 @@ Route::resource('/categorias', 'CategoriaController');
 Route::resource('/festivales', 'FestivalController');
 Route::resource('/eventos', 'EventoController');
 Route::resource('/curadores', 'CuradorController');
+Route::resource('/premios', 'PremioController');
 
 Auth::routes();
 
