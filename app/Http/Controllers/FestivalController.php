@@ -42,7 +42,7 @@ class FestivalController extends Controller
             'nombre' => 'required',
         ]);
 
-        Categoria::create([
+        Festival::create([
             'nombre' => request('nombre'),
             'fecha_creacion' => request('fecha_creacion'),
         ]);
