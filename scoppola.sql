@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 17, 2022 at 07:24 PM
+-- Generation Time: Jun 19, 2022 at 10:52 AM
 -- Server version: 10.3.23-MariaDB-cll-lve
 -- PHP Version: 7.4.29
 
@@ -51,18 +51,6 @@ INSERT INTO `categorias` (`id`, `nombre`) VALUES
 CREATE TABLE `cat_event` (
   `categorias_id` int(10) UNSIGNED NOT NULL,
   `eventos_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cat_obra`
---
-
-CREATE TABLE `cat_obra` (
-  `cat_event_cat_id` int(10) UNSIGNED NOT NULL,
-  `obras_id` int(10) UNSIGNED NOT NULL,
-  `cat_event_eve_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -261,14 +249,6 @@ ALTER TABLE `cat_event`
   ADD KEY `fk_eventos_id` (`eventos_id`);
 
 --
--- Indexes for table `cat_obra`
---
-ALTER TABLE `cat_obra`
-  ADD KEY `fk_obras_id` (`obras_id`),
-  ADD KEY `fk_cat_event_cat` (`cat_event_cat_id`),
-  ADD KEY `fk_cat_event_eve` (`cat_event_eve_id`);
-
---
 -- Indexes for table `curadores`
 --
 ALTER TABLE `curadores`
@@ -309,9 +289,9 @@ ALTER TABLE `ganadores`
 -- Indexes for table `inscritos`
 --
 ALTER TABLE `inscritos`
-  ADD KEY `fk_cat_obra_obr` (`cat_obra_obr`),
-  ADD KEY `fk_cat_obra_cat` (`cat_obra_cat`),
-  ADD KEY `fk_cat_obra_eve` (`cat_obra_eve`);
+  ADD KEY `fk_cat_even_cat` (`cat_obra_cat`),
+  ADD KEY `fk_cat_even_eve` (`cat_obra_eve`),
+  ADD KEY `fk_obra_id` (`cat_obra_obr`);
 
 --
 -- Indexes for table `obras`
@@ -411,14 +391,6 @@ ALTER TABLE `cat_event`
   ADD CONSTRAINT `fk_eventos_id` FOREIGN KEY (`eventos_id`) REFERENCES `eventos` (`id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `cat_obra`
---
-ALTER TABLE `cat_obra`
-  ADD CONSTRAINT `fk_cat_event_cat` FOREIGN KEY (`cat_event_cat_id`) REFERENCES `cat_event` (`categorias_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cat_event_eve` FOREIGN KEY (`cat_event_eve_id`) REFERENCES `cat_event` (`eventos_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_obras_id` FOREIGN KEY (`obras_id`) REFERENCES `obras` (`id`) ON UPDATE CASCADE;
-
---
 -- Constraints for table `cura_event`
 --
 ALTER TABLE `cura_event`
@@ -446,9 +418,9 @@ ALTER TABLE `ganadores`
 -- Constraints for table `inscritos`
 --
 ALTER TABLE `inscritos`
-  ADD CONSTRAINT `fk_cat_obra_cat` FOREIGN KEY (`cat_obra_cat`) REFERENCES `cat_obra` (`cat_event_cat_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cat_obra_eve` FOREIGN KEY (`cat_obra_eve`) REFERENCES `cat_obra` (`cat_event_eve_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cat_obra_obr` FOREIGN KEY (`cat_obra_obr`) REFERENCES `cat_obra` (`obras_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_cat_even_cat` FOREIGN KEY (`cat_obra_cat`) REFERENCES `cat_event` (`categorias_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_cat_even_eve` FOREIGN KEY (`cat_obra_eve`) REFERENCES `cat_event` (`eventos_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_obra_id` FOREIGN KEY (`cat_obra_obr`) REFERENCES `obras` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `obras`
