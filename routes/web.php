@@ -24,6 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/categorias', 'CategoriaController');
 Route::resource('/festivales', 'FestivalController');
 Route::resource('/eventos', 'EventoController');
+Route::get('/eventos/addCategoria/{id}', 'EventoController@agregarCategoria')->name('agregarCategoria');
+Route::put('/eventos/saveCategoria/{id}', 'EventoController@guardarCategoria')->name('guardarCategoria');
 Route::resource('/curadores', 'CuradorController');
 Route::resource('/premios', 'PremioController');
 

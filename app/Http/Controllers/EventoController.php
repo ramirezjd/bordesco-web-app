@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Evento;
 use App\Festival;
+use App\Categoria;
+use App\Cat_event;
 use Illuminate\Http\Request;
 
 class EventoController extends Controller
@@ -121,5 +123,56 @@ class EventoController extends Controller
         $evento->delete();
         
         return redirect()->route('eventos.index');
+		}
+		
+		/**
+     * Agregar categorias al evento
+     *
+     * @param  \App\Evento  $evento
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarCategoria($id)
+    {        
+				$evento = Evento::findOrFail($id);
+				$festival = Festival::findOrFail($evento->festivales_id);
+        $categorias_evento = Cat_event::where('eventos_id', $id)->get();
+				if( $categorias_evento->count() == 0 )
+					$categorias_evento = array(0,0); //evento sin categorias
+				else{
+					foreach ($categorias_evento as $marcadas)
+						$vcategorias[] = $marcadas->categorias_id;
+				}
+        $categorias = Categoria::all();
+         return view('eventos.agregarCategoria', [
+            'evento' => $evento,
+            'festival' => $festival,
+            'categorias' => $categorias,
+            'categorias_evento' => $vcategorias,
+        ]);
+		}
+
+		/**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function guardarCategoria( Request $request , $evento )
+    {
+       /* $request->validate([
+            'anio' => 'required',
+            'festival' => 'required',
+            'inicio_convocatoria' => 'required',
+            'fin_convocatoria' => 'required',
+			 ]);*/
+			foreach ($request->categoria as $categoria){
+				$values[] = ['eventos_id'=>$evento , 'categorias_id'=>$categoria]; 
+			}
+
+        Cat_event::where('eventos_id',$evento)->delete();
+        Cat_event::insert($values);
+
+        return redirect()->route('eventos.index');
     }
+
 }
