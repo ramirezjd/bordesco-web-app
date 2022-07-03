@@ -5,7 +5,7 @@
     <div class="row mb-3">
         <div class="col-6 margin-tb">
             <div class="pull-left">
-                <h2>Agregar categorias a {{ $festival->nombre }} {{$evento->ano}}</h2>
+                <h2>Agregar curadores a {{ $festival->nombre }} {{$evento->ano}}</h2>
             </div>
         </div>
         <div class="col-6 text-right my-auto">
@@ -23,7 +23,7 @@
         </div>
     @endif
 
-    <form action="{{ route('guardarCategoria', $evento->id) }}" method="POST">
+    <form action="{{ route('guardarCurador', $evento->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="row mx-auto">
@@ -31,14 +31,14 @@
         </div>
         <div class="row mt-4 mx-auto">
             <div class="col-md-4 ">
-                <label>Categorias:</label><br>
-                @foreach ($categorias as $categoria)
-									<input type="checkbox" id="categoria[]" name="categoria[]" value="{{ $categoria->id }}" 
-									@if (in_array($categoria->id,$categorias_evento))
+                <label>Curadores:</label><br>
+                @foreach ($curadores as $curador)
+									<input type="checkbox" id="curador[]" name="curador[]" value="{{ $curador->id }}" 
+									@if (in_array($curador->id,$curadores_evento))
 										checked
 									@endif
 									 >
-									<label for="categoria[]"> {{ $categoria->nombre }}</label><br>
+									<label for="curador[]"> {{ $curador->nombre }}</label><br>
                 @endforeach
             </div>
         </div>

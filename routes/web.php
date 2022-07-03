@@ -26,6 +26,8 @@ Route::resource('/festivales', 'FestivalController');
 Route::resource('/eventos', 'EventoController');
 Route::get('/eventos/addCategoria/{id}', 'EventoController@agregarCategoria')->name('agregarCategoria');
 Route::put('/eventos/saveCategoria/{id}', 'EventoController@guardarCategoria')->name('guardarCategoria');
+Route::get('/eventos/addCurador/{id}', 'EventoController@agregarCurador')->name('agregarCurador');
+Route::put('/eventos/saveCurador/{id}', 'EventoController@guardarCurador')->name('guardarCurador');
 Route::resource('/curadores', 'CuradorController');
 Route::resource('/premios', 'PremioController');
 
