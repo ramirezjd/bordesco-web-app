@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 19, 2022 at 10:52 AM
+-- Generation Time: Jul 03, 2022 at 02:45 PM
 -- Server version: 10.3.23-MariaDB-cll-lve
 -- PHP Version: 7.4.29
 
@@ -83,9 +83,7 @@ INSERT INTO `curadores` (`id`, `nombre`) VALUES
 
 CREATE TABLE `cura_event` (
   `curadores_id` int(10) UNSIGNED NOT NULL,
-  `inscritos_cat` int(10) UNSIGNED NOT NULL,
-  `inscritos_obr` int(10) UNSIGNED NOT NULL,
-  `inscritos_eve` int(10) UNSIGNED NOT NULL
+  `eventos_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -226,9 +224,9 @@ CREATE TABLE `usuarios` (
 CREATE TABLE `votaciones` (
   `voto` int(11) NOT NULL,
   `cura_event_curador` int(10) UNSIGNED NOT NULL,
-  `cura_event_cat` int(10) UNSIGNED NOT NULL,
+  `inscritos_cat` int(10) UNSIGNED NOT NULL,
   `cura_event_eve` int(10) UNSIGNED NOT NULL,
-  `cura_event_obr` int(10) UNSIGNED NOT NULL
+  `inscritos_obr` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -259,9 +257,7 @@ ALTER TABLE `curadores`
 --
 ALTER TABLE `cura_event`
   ADD KEY `fk_curadores_id` (`curadores_id`),
-  ADD KEY `fk_inscritos_cate` (`inscritos_cat`),
-  ADD KEY `fk_inscritos_even` (`inscritos_eve`),
-  ADD KEY `fk_inscritos_obra` (`inscritos_obr`);
+  ADD KEY `fk_cura_eventos_id` (`eventos_id`);
 
 --
 -- Indexes for table `eventos`
@@ -322,10 +318,10 @@ ALTER TABLE `usuarios`
 -- Indexes for table `votaciones`
 --
 ALTER TABLE `votaciones`
+  ADD KEY `fk_cura_event_even` (`cura_event_eve`),
   ADD KEY `fk_cura_event_cura` (`cura_event_curador`),
-  ADD KEY `fk_cura_event_cat` (`cura_event_cat`),
-  ADD KEY `fk_cura_event_eve` (`cura_event_eve`),
-  ADD KEY `fk_cura_event_obr` (`cura_event_obr`);
+  ADD KEY `fk_inscrito_obr` (`inscritos_obr`),
+  ADD KEY `fk_inscrito_cat` (`inscritos_cat`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -394,10 +390,8 @@ ALTER TABLE `cat_event`
 -- Constraints for table `cura_event`
 --
 ALTER TABLE `cura_event`
-  ADD CONSTRAINT `fk_curadores_id` FOREIGN KEY (`curadores_id`) REFERENCES `curadores` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_inscritos_cate` FOREIGN KEY (`inscritos_cat`) REFERENCES `inscritos` (`cat_obra_cat`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_inscritos_even` FOREIGN KEY (`inscritos_eve`) REFERENCES `inscritos` (`cat_obra_obr`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_inscritos_obra` FOREIGN KEY (`inscritos_obr`) REFERENCES `inscritos` (`cat_obra_obr`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_cura_eventos_id` FOREIGN KEY (`eventos_id`) REFERENCES `eventos` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_curadores_id` FOREIGN KEY (`curadores_id`) REFERENCES `curadores` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `eventos`
@@ -432,10 +426,10 @@ ALTER TABLE `obras`
 -- Constraints for table `votaciones`
 --
 ALTER TABLE `votaciones`
-  ADD CONSTRAINT `fk_cura_event_cat` FOREIGN KEY (`cura_event_cat`) REFERENCES `cura_event` (`inscritos_cat`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_cura_event_cura` FOREIGN KEY (`cura_event_curador`) REFERENCES `cura_event` (`curadores_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cura_event_eve` FOREIGN KEY (`cura_event_eve`) REFERENCES `cura_event` (`inscritos_eve`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cura_event_obr` FOREIGN KEY (`cura_event_obr`) REFERENCES `cura_event` (`inscritos_obr`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_cura_event_even` FOREIGN KEY (`cura_event_eve`) REFERENCES `cura_event` (`eventos_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_inscrito_cat` FOREIGN KEY (`inscritos_cat`) REFERENCES `inscritos` (`cat_obra_cat`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_inscrito_obr` FOREIGN KEY (`inscritos_obr`) REFERENCES `inscritos` (`cat_obra_obr`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
