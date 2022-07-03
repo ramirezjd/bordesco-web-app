@@ -35,7 +35,7 @@
         <div class="row mx-auto">
             <div class="col">
                 <label for="nombre">Fecha de creación</label>
-                <input class="form-control " type="text" name="fecha_creacion" placeholder="Fecha de creación del festival" value="{{$festival->fecha_creacion}}" >
+                <input class="form-control " type="date" name="fecha_creacion" placeholder="Fecha de creación del festival" value="{{$festival->fecha_creacion}}" >
             </div>
          </div>
          <div class="row mt-3">
