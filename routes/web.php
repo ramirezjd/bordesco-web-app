@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/registrarObra', 'ObraController@create')->name('home');
+Route::get('/stats', 'FestivalController@stats')->name('stats');
 
 // Route::middleware('auth')->group(function(){
     Route::resource('/categorias', 'CategoriaController');

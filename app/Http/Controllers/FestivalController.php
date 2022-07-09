@@ -119,4 +119,14 @@ class FestivalController extends Controller
 				
         return redirect()->route('festivales.index');
     }
+
+    /**
+     * Show the metrics dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function stats()
+    {
+        return view('estadisticas.index');
+    }
 }
